@@ -1,14 +1,15 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/home/Home';
+import Details from './components/details/Details';
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<h1 className='text-danger'>hello from home</h1>} />
+        <Route path="/" element={<Home />} />
         <Route path="/search" element={<h1 className='text-info'>hello form search</h1>} />
+        <Route path="/pokemon/:pokemonName" element={<Details />} />
       </Routes>
-    </BrowserRouter>
   );
 }
 
