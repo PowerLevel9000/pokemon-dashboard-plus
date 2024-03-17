@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useGetPokemonQuery } from '../../redux/pokemon/pokemon';
 import Button from '../Button';
 import { Link } from 'react-router-dom';
+import PokemonCard from '../shared/PokemonCard';
 
 const Home = () => {
     const [page, setPage] = useState(1);
@@ -11,7 +12,7 @@ const Home = () => {
             {isLoading && <div>Loading...</div>}
             {error && <div>Error</div>}
             {data && data.results.map((pokemon: Pokemon) => (
-                <Link className='d-block' to={`/pokemon/${pokemon.name}`} key={pokemon.name}>{pokemon.name}</Link>
+                <Link className='d-block' to={`/pokemon/${pokemon.name}`} key={pokemon.name}><PokemonCard pokemonName={pokemon.name} /></Link>
             ))}
             <Button type="button" onClick={() => setPage(page - 1)} isLoading={isFetching}>
                 Previous
