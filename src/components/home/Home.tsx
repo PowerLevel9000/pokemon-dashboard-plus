@@ -1,7 +1,6 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useGetPokemonQuery } from '../../redux/pokemon/pokemon';
 import Button from '../Button';
-import { Link } from 'react-router-dom';
 import PokemonCard from '../shared/PokemonCard';
 import TypeFilter from '../shared/TypeFilter';
 import Loader from '../shared/Loader';
