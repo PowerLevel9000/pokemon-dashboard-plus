@@ -9,19 +9,19 @@ import PokeHeader from './pokeHeader'
 const PokemonCard = ({ pokemonName }) => {
     const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName);
     const dispatch = useDispatch();
-    
+
     if (error) return <div>Error: {error.message}</div>
     if (isLoading) return <Loader />
 
     return (
         <>
-            <div className="card p-2">
-                <PokeHeader />
+            <div className="card pokemon-card p-2">
+                <PokeHeader pokeName={data.name} pokeImage={data.front_shiny} />
                 <Suspense fallback={<Loader />}>
                     <img
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
-                        onClick={()=> dispatch(showModal({ title: data.name, body: data.name}))}
+                        onClick={() => dispatch(showModal({ title: data.name, body: data.name }))}
                         src={data.front_default} alt={data.name}
                         height="200px" className="card-img-top p-2 poke-img" />
                 </Suspense>
@@ -40,17 +40,20 @@ const PokemonCard = ({ pokemonName }) => {
                         }
                     </li>
                 </ul>
-                <div className="card-body d-flex justify-content-between">
-                    <Link to={`/pokemon/${pokemonName}`} className="card-link btn btn-primary">See Details</Link>
-                    <button
-                        type="button" onClick={
-                            () => dispatch(showModal({ title: data.name, body: <img height="400px" width="100%" src={data.front_default} />}))
-                        }
-                        className="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        Preview
-                    </button>
+                <div className="card-body d-flex justify-content-between align-items-center">
+                    <div className='w-50 d-flex gap-2'>
+                    <Link to={`/pokemon/${pokemonName}`} className="card-link btn btn-primary fs-6">Details</Link>
+                        <button
+                            type="button" onClick={
+                                () => dispatch(showModal({ title: data.name, body: <img height="400px" width="100%" src={data.front_default} /> }))
+                            }
+                            className="btn btn-success fs-6"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Preview
+                        </button>
+                    </div>
+                    <i className='fa-regular fa-heart'></i>
                 </div>
             </div>
         </>

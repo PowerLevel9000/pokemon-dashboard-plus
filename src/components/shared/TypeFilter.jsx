@@ -1,32 +1,32 @@
-import React from 'react'
-import { useGetPokemonByTypeQuery, useGetPokemonTypeQuery } from '../../redux/pokemon/pokemon'
+import { useGetPokemonTypeQuery } from '../../redux/pokemon/pokemon'
+import Loader from './Loader'
 
-const TypeFilter = ({ setterFunction }) => {
+const TypeFilter = ({ setterFunction, fixed }) => {
   const { data, error, isLoading } = useGetPokemonTypeQuery()
   return (
     <div>
       {
         isLoading ? (
-          <p>Loading...</p>
+          <Loader />
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          <>
-            <button onClick={setterFunction("")}>
+          <div className={fixed ? 'd-flex py-3 fixed-top justify-content-around badge-bg' :'d-flex py-3 justify-content-around badge-bg'}>
+            <span className='badge bg-success text-capitalize' onClick={setterFunction("")}>
               All
-            </button>
+            </span>
             {
               data.map((item) => {
                 return (
-                  <button
+                  <span className='badge bg-success text-capitalize'
                     onClick={setterFunction(item.name)}
                   >
                     {item.name}
-                  </button>
+                  </span>
                 )
               })
             }
-          </>
+          </div>
         )
       }
     </div>

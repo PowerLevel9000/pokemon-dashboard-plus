@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 
-const PokeHeader = () => {
+const PokeHeader = ({pokeName, pokeImage}) => {
     return (
-        <Link to={' '}>
+        <Link to={`/pokemon/${pokeName}`}>
             <div className='card-header d-flex gap-2'>
                 <div className="logo-warper">
-                    <img src={""} alt={"logo"} />
+                    <img  src={pokeImage} alt={"logo"} />
                 </div>
-                <h3 className='text-capitalize my-0'>Poked</h3>
+                <h3 className='text-capitalize my-0'>{pokeName}</h3>
             </div>
         </Link>
     )

@@ -25,6 +25,7 @@ type ListResponse<T> = {
     per_page: number
     total: number
     total_pages: number
+    count: number
     data: T[]
     results: Pokemon[]
 }

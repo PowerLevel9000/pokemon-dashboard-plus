@@ -2,3 +2,64 @@
   transform: scale(1.1);
   transition: transform 0.5s;
 }
+
+.logo-warper {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid #deff39;
+  width: 40px;
+  height: 40px;
+  background-color: antiquewhite;
+}
+
+.logo-warper img {
+  width: 30px;
+  height: 30px;
+}
+
+.gif-pokemon {
+  height: 100px;
+  width: 100px;
+  background-color: var(bg-success);
+}
+
+.hero {
+  background: linear-gradient(99.8deg, rgb(92, 255, 51), rgb(244, 226, 26));
+  background-size: cover;
+  background-position: center;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.hero button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #deff39;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero button:hover {
+  background-color: #bada55;
+}
+
+.pokemon-container {
+  min-height: 110vh;
+}

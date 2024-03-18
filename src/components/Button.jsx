@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Button = ({ isLoading, children, onClick, ...rest }) => {
+const Button = ({ isLoading, button, onClick, ...rest }) => {
     return (
         <button type="button" onClick={onClick} disabled={isLoading} {...rest}>
-            {isLoading ? 'Loading...' : children}
+            {isLoading ? '...' : button}
         </button>
     );
 };
