@@ -1,21 +1,61 @@
-import React from 'react'
+import { Suspense } from 'react'
+import { useDispatch } from 'react-redux'
 import { useGetPokemonByNameQuery } from '../../redux/pokemon/pokemon'
+import Loader from './Loader'
+import { showModal } from '../../redux/modalSlice'
+import { Link } from 'react-router-dom'
+import PokeHeader from './pokeHeader'
 
 const PokemonCard = ({ pokemonName }) => {
-    const { data, error, isLoading, isFetching } = useGetPokemonByNameQuery(pokemonName)
+    const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName);
+    const dispatch = useDispatch();
+    
+    if (error) return <div>Error: {error.message}</div>
+    if (isLoading) return <Loader />
+
     return (
         <>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p>Error: {error}</p>
-            ) : (
-                <pre>
-                    {JSON.stringify(data)}
-                </pre>
-            )}
+            <div className="card p-2">
+                <PokeHeader />
+                <Suspense fallback={<Loader />}>
+                    <img
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        onClick={()=> dispatch(showModal({ title: data.name, body: data.name}))}
+                        src={data.front_default} alt={data.name}
+                        height="200px" className="card-img-top p-2 poke-img" />
+                </Suspense>
+                <div className="card-body">
+                    <h5 className="card-title text-capitalize">{data.name}</h5>
+                </div>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item d-flex gap-2">
+                        Types:
+                        {' '}
+                        {
+                            data.typesArr.map(type => (
+                                <span className='badge bg-info text-capitalize'>
+                                    {type}
+                                </span>))
+                        }
+                    </li>
+                </ul>
+                <div className="card-body d-flex justify-content-between">
+                    <Link to={`/pokemon/${pokemonName}`} className="card-link btn btn-primary">See Details</Link>
+                    <button
+                        type="button" onClick={
+                            () => dispatch(showModal({ title: data.name, body: <img height="400px" width="100%" src={data.front_default} />}))
+                        }
+                        className="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Preview
+                    </button>
+                </div>
+            </div>
         </>
     )
+
 }
 
 export default PokemonCard

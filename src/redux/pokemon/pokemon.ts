@@ -6,12 +6,19 @@ export const pokemonApi = createApi({
     endpoints: (builder) => ({
         getPokemonByName: builder.query({
             queryFn: async (pName: string) => {
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pName}`);
-                const tempData = await res.json();
-                const { id, name, abilities, sprites: {front_default, back_default, back_shiny, front_shiny} } = tempData;
-                const typesArr = tempData.types.map((type: any) => type.type.name);
-                const abilitiesArr = abilities.map((ability: any) => ability.ability.name);
-                return { data: { id, name, typesArr, abilitiesArr, sprites: [front_default, back_default, back_shiny, front_shiny] } };
+                try {
+                    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pName}`);
+                    if (!res.ok) {
+                        throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
+                    }
+                    const tempData = await res.json();
+                    const { id, name, abilities, sprites: { front_shiny, other: { dream_world:{front_default} } } } = tempData;
+                    const typesArr = tempData.types.map((type: any) => type.type.name);
+                    const abilitiesArr = abilities.map((ability: any) => ability.ability.name);
+                    return { data: { id, name, typesArr, abilitiesArr, front_default, front_shiny } };
+                } catch (error: any) {
+                    return { error: error.message };
+                }
             },
         }),
         getPokemon: builder.query<ListResponse<PokemonList>, number | void>({
@@ -21,10 +28,13 @@ export const pokemonApi = createApi({
             queryFn: async () => {
                 try {
                     const res = await fetch('https://pokeapi.co/api/v2/type');
+                    if (!res.ok) {
+                        throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
+                    }
                     const tempData = await res.json();
                     return { data: tempData.results };
                 } catch (error: any) {
-                    throw Error(error);
+                    return { error: error };
                 }
             }
         }),
@@ -32,11 +42,14 @@ export const pokemonApi = createApi({
             queryFn: async (type: string) => {
                 try {
                     const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+                    if (!res.ok) {
+                        throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
+                    }
                     const tempData = await res.json();
                     const { pokemon: { name } } = tempData.pokemon;
                     return { data: name };
-                }catch (error: any) {
-                    throw Error(error); 
+                } catch (error: any) {
+                    return { error: error.message };
                 }
             },
         })

@@ -1,8 +1,8 @@
 import React from 'react'
-import { useGetPokemonTypeQuery } from '../../redux/pokemon/pokemon'
+import { useGetPokemonByTypeQuery, useGetPokemonTypeQuery } from '../../redux/pokemon/pokemon'
 
-const TypeFilter = ({setterFunction}) => {
-  const {data, error, isLoading} = useGetPokemonTypeQuery()
+const TypeFilter = ({ setterFunction }) => {
+  const { data, error, isLoading } = useGetPokemonTypeQuery()
   return (
     <div>
       {
@@ -11,12 +11,22 @@ const TypeFilter = ({setterFunction}) => {
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          <select onChange={(e) => setterFunction(e.target.value)}>
-            <option value=''>All</option>
-            {data.results.map((type, index) => (
-              <option key={index} value={type.name}>{type.name}</option>
-            ))}
-          </select>
+          <>
+            <button onClick={setterFunction("")}>
+              All
+            </button>
+            {
+              data.map((item) => {
+                return (
+                  <button
+                    onClick={setterFunction(item.name)}
+                  >
+                    {item.name}
+                  </button>
+                )
+              })
+            }
+          </>
         )
       }
     </div>
