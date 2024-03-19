@@ -8,12 +8,12 @@ import Error from '../shared/Error';
 const Details = () => {
     const { pokemonName } = useParams();
     const { data, error, isLoading
-    } = useGetPokemonDetailQuery(pokemonName);
+    } = useGetPokemonDetailQuery(pokemonName || '');
 
     // if loading, show loader
     if (isLoading) return <Loader />
     // if error, show error
-    if (error) return <Error error={error} />
+    if (error) return <Error error={error} data={"Details"} />
     // if no loading and no error, show data
     return (
         <main className='home-container'>
@@ -21,10 +21,10 @@ const Details = () => {
                 <div>
                     <h2>Details of the</h2>
                 </div>
-                <PokeHeader pokeName={pokemonName} pokeImage={data?.image} />
+                <PokeHeader pokeName={pokemonName} pokeImage={data&& 'image' in data && data?.image} />
             </div>
             <DetailCard {...data} />
-            <DetailStats stat={data?.stats} />
+            {data && 'stats' in data && <DetailStats stat={data.stats} />}
         </main>
     )
 }

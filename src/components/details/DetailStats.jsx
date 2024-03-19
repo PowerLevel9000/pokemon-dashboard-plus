@@ -1,4 +1,4 @@
-const DetailStats = () => {
+const DetailStats = ({stat}) => {
   return (
     <div></div>
   )

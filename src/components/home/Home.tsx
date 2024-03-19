@@ -8,9 +8,9 @@ import Hero from '../Hero';
 import Error from '../shared/Error';
 
 const Home = () => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState<number>(1);
     const { data, error, isFetching } = useGetPokemonQuery(page);
-    const [scrollLength, setScrollLength] = useState(0)
+    const [scrollLength, setScrollLength] = useState<number>(0)
 
     // Scroll event listener
     useEffect(() => {
@@ -24,13 +24,13 @@ const Home = () => {
     }, [scrollLength]);
 
     // Increment and decrement page
-    const incrementor = () => {
+    const incrementor = ():void => {
         if (data && data.count / 25 > 0) {
             setPage(page + 1)
         };
     }
 
-    const decrementor = () => {
+    const decrementor = ():void => {
         if (page > 1) {
             setPage(page - 1)
         };
