@@ -1,14 +1,26 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/home/Home';
+import Details from './components/details/Details';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import Search from './components/search/SearchPokemon';
+import Favorite from './components/faviroute/Favorite';
+import Default404 from './components/default/DefaultPage404';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
+      <Navigation />
       <Routes>
-        <Route path="/" element={<h1 className='text-danger'>hello from home</h1>} />
-        <Route path="/search" element={<h1 className='text-info'>hello form search</h1>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/favorites" element={<Favorite />} />
+        <Route path="/pokemon/:pokemonName" element={<Details />} />
+        <Route path="*" element={<Default404/>} />
       </Routes>
-    </BrowserRouter>
+      <Footer />
+    </>
   );
 }
 
