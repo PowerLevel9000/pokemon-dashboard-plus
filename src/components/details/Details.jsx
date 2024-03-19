@@ -5,8 +5,10 @@ import DetailCard from './DetailCard';
 import DetailStats from './DetailStats';
 import Loader from '../shared/Loader';
 import Error from '../shared/Error';
+import { useDocumentTitle } from '../../lib/date';
 const Details = () => {
     const { pokemonName } = useParams();
+    useDocumentTitle(pokemonName ? `Details of ${pokemonName}` : 'Details of Pokemon');
     const { data, error, isLoading
     } = useGetPokemonDetailQuery(pokemonName || '');
 

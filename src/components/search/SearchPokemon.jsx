@@ -3,12 +3,14 @@ import { useGetPokemonByNameQuery } from '../../redux/pokemon/pokemon';
 import PokemonCard from '../shared/PokemonCard';
 import Loader from '../shared/Loader';
 import Error from '../shared/Error';
+import { useDocumentTitle } from '../../lib/date';
 
 const Search = () => {
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('')
   const [timeoutId, setTimeoutId] = useState('');
   const { data, error } = useGetPokemonByNameQuery(query || "bulbasaur");
+  useDocumentTitle(search || 'Search Pokemon')
 
   // Clear timeout on unmount
   useEffect(() => {
