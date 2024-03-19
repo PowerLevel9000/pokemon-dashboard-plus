@@ -1,5 +1,6 @@
+import { useRef, useEffect } from 'react'
 // This function would be used in future to calculate the time difference between the current time and the time when the order was fulfilled.
-const timeDiff = (fulfilledTimeStamp: any) => {
+export const timeDiff = (fulfilledTimeStamp: any) => {
     const now: Date = new Date();
     const fulfilled: Date = new Date(fulfilledTimeStamp);
     const difference = Math.abs(now.getTime() - fulfilled.getTime());
@@ -9,4 +10,16 @@ const timeDiff = (fulfilledTimeStamp: any) => {
     return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 }
 
-export default timeDiff;
+export const useDocumentTitle = (title: string, prevailOnUnmount: boolean = false) => {
+    const defaultTitle = useRef(document.title);
+
+    useEffect(() => {
+        document.title = title;
+    }, [title]);
+
+    useEffect(() => () => {
+        if (!prevailOnUnmount) {
+            document.title = defaultTitle.current;
+        }
+    }, [])
+}

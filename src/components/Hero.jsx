@@ -6,7 +6,7 @@ import walking from '../assets/gifs/walking.gif'
 const Hero = () => {
     // Images to be displayed on the hero section as Deck
     const images = [
-        { src: dragon, alt: "Dragon", style: { top: "20%", right: "45%" } },
+        { src: dragon, alt: "Dragon", style: { top: "19%", right: "49%" } },
         { src: hello, alt: "Hello", style: { top: "10%", left: "5%", width: "150px" } },
         { src: meote, alt: "Meote", style: { bottom: "5%", left: "15%", width: "250px" } },
         { src: walking, alt: "Walking", style: { bottom: "5%", right: "15%", width: "100px" } },

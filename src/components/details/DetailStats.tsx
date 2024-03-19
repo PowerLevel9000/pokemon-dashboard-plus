@@ -26,7 +26,7 @@ const DetailStats = ({ stat, pokeName }: { stat: any, pokeName: string }) => {
       {
         label: 'Stats',
         data: stat.map((s: any) => s.base_stat),
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: 'rgb(20, 181, 154)',
       },
     ]
   };

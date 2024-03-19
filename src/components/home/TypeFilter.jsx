@@ -12,7 +12,7 @@ const TypeFilter = ({ setterFunction, fixed }) => {
         ) : error ? (
           <Error error={error} data={"Type"} />
         ) : (
-          <div className={`d-flex py-3 ${fixed && "fixed-top"} flex-wrap justify-content-around badge-bg`}>
+          <div className={`d-flex py-3 ${fixed && "fixed-top"} flex-wrap gap-2 justify-content-around badge-bg`}>
             <span title='All filter' className='badge bg-success text-capitalize' onClick={setterFunction("")}>
               All
             </span>

@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useGetPokemonByNameQuery } from '../../redux/pokemon/pokemon'
 import Loader from './Loader'
