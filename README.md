@@ -110,7 +110,8 @@
 > This link will guide you to my project
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/73347f69-a6b9-4eeb-903e-9f13d98d3191/deploy-status)](https://pokedexplus.netlify.app/)
-presentation video <a href="https://www.loom.com/share/aed6644a3829491ca4d69c45f222d2ab">click here </a>
+<br>
+Presentation video <a href="https://www.loom.com/share/f1600b6b074c4161ba31a17f1023846f?sid=f35df531-4177-4550-a4c7-c212ca5e5ade">click here </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
