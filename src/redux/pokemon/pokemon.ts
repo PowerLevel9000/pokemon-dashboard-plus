@@ -58,14 +58,64 @@ export const pokemonApi = createApi({
             },
         }),
         getPokemonDetail: builder.query({
-            query: (name: string) => `pokemon/${name}`,
-            transformResponse: (response: any) => {
-                // if (!response.ok) {
-                //     // Handle network error
-                //     return { error: `Network response was not ok ${response.status} ${response.statusText}` };
-                // }
+            // query: (name: string) => `pokemon/${name}`,
+            // transformResponse: (response: any) => {
+            //     // if (!response.ok) {
+            //     //     // Handle network error
+            //     //     return { error: `Network response was not ok ${response.status} ${response.statusText}` };
+            //     // }
             
+            //     try {
+            //         const {
+            //             id,
+            //             name,
+            //             height,
+            //             weight,
+            //             base_experience,
+            //             types,
+            //             moves,
+            //             held_items,
+            //             stats,
+            //             abilities,
+            //             sprites: {
+            //                 front_shiny,
+            //                 other: {
+            //                     dream_world: { front_default: image }
+            //                 }
+            //             }
+            //         } = response;
+            
+            //         const typesArr = arrOutput(types, "type");
+            //         const abilitiesArr = arrOutput(abilities, "ability");
+            //         const moveArr = arrOutput(moves, "move");
+            //         const itemsArr = arrOutput(held_items, "item");
+            
+            //         return {
+            //             id,
+            //             name,
+            //             image,
+            //             front_shiny,
+            //             height,
+            //             weight,
+            //             base_experience,
+            //             typesArr,
+            //             abilitiesArr,
+            //             moveArr,
+            //             itemsArr,
+            //             stats,
+            //         };
+            //     } catch (error: any) {
+            //         // Handle any other errors that might occur during response transformation
+            //         return { error: `Error processing response: ${error.message}` };
+            //     }
+            // }
+            queryFn: async (pokeName: string) => {
                 try {
+                    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
+                    if (!res.ok) {
+                        throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
+                    }
+                    const tempData = await res.json();
                     const {
                         id,
                         name,
@@ -83,14 +133,12 @@ export const pokemonApi = createApi({
                                 dream_world: { front_default: image }
                             }
                         }
-                    } = response;
-            
+                    } = tempData;
                     const typesArr = arrOutput(types, "type");
                     const abilitiesArr = arrOutput(abilities, "ability");
                     const moveArr = arrOutput(moves, "move");
                     const itemsArr = arrOutput(held_items, "item");
-            
-                    return {
+                    return {data:{
                         id,
                         name,
                         image,
@@ -103,12 +151,11 @@ export const pokemonApi = createApi({
                         moveArr,
                         itemsArr,
                         stats,
-                    };
+                    }};
                 } catch (error: any) {
-                    // Handle any other errors that might occur during response transformation
-                    return { error: `Error processing response: ${error.message}` };
+                    return { error: error.message };
                 }
-            }
+            },
             
         })
     }),

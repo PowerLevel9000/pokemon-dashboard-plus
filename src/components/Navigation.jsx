@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Navigation = () => {
     const navItems = [
         { name: "Home", path: "/" },
-        { name: "Favorite", path: "/favorite" },
+        { name: "Favorite", path: "/favorites" },
         { name: "Search", path: "/search" }
     ];
 
