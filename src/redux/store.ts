@@ -8,9 +8,11 @@ const store = configureStore({
         modal: modalSlice,
         [pokemonApi.reducerPath]: pokemonApi.reducer,
     },
-
+    
+    // Add the API middleware to the store
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
+            // Disable the Serializability check
             serializableCheck: false,
         }).concat(pokemonApi.middleware);
     }

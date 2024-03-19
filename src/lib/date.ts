@@ -1,3 +1,4 @@
+// This function would be used in future to calculate the time difference between the current time and the time when the order was fulfilled.
 const timeDiff = (fulfilledTimeStamp: any) => {
     const now: Date = new Date();
     const fulfilled: Date = new Date(fulfilledTimeStamp);

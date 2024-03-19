@@ -1,33 +1,35 @@
 import dragon from '../assets/gifs/dragon.gif'
 import hello from '../assets/gifs/hello.gif'
-import main from '../assets/gifs/Main.gif'
 import meote from '../assets/gifs/meote.gif'
 import walking from '../assets/gifs/walking.gif'
 
 const Hero = () => {
+    // Images to be displayed on the hero section as Deck
+    const images = [
+        { src: dragon, alt: "Dragon", style: { top: "20%", right: "45%" } },
+        { src: hello, alt: "Hello", style: { top: "10%", left: "5%", width: "150px" } },
+        { src: meote, alt: "Meote", style: { bottom: "5%", left: "15%", width: "250px" } },
+        { src: walking, alt: "Walking", style: { bottom: "5%", right: "15%", width: "100px" } },
+    ];
     return (
         <section className="hero position-relative">
             <div className='hero-container'>
-                {[
-                    { src: dragon, alt: "Dragon", style: { top: "20%", right: "45%" } },
-                    { src: hello, alt: "Hello", style: { top: "10%", left: "5%", width: "150px" } },
-                    // { src: main, alt: "Main", style: {bottom:"25%", right:"5%", width: "200px"} },
-                    { src: meote, alt: "Meote", style: { bottom: "5%", left: "15%", width: "250px" } },
-                    { src: walking, alt: "Walking", style: { bottom: "5%", right: "15%", width: "100px" } },
-                ].map((item, index) => (
+                {images.map((item, index) => (
                     <img
                         key={index}
+                        title={item.alt}
                         className="position-absolute"
                         src={item.src}
                         alt={item.alt}
                         style={item.style}
                     />
                 ))}
-                <h1>your favorite pokemon waiting</h1>
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor quidem,
-                    repudiandae amet laborum odit velit quae hic perferleftis ut nostrum
-                    excepturi corrupti error nisi maiores fugit! Totam distinctio fuga sequi?
+                <h1 title="Hero Title">Your Favorite Pokemon Are Waiting</h1>
+                <p title='Hero Description'>
+                    Welcome to the Pokemon Dashboard Plus! 
+                    Here, you can explore a collection of your favorite Pokemon. 
+                    Add them to your favorites and view detailed information about each Pokemon. 
+                    Start your Pokemon journey now!
                 </p>
             </div>
         </section>

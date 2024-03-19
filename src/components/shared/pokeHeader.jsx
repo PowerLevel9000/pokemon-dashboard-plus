@@ -5,9 +5,9 @@ const PokeHeader = ({pokeName, pokeImage}) => {
         <Link to={`/pokemon/${pokeName}`}>
             <div className='card-header d-flex justify-content-between'>
                 <div className="logo-warper">
-                    <img  src={pokeImage} alt={"logo"} />
+                    <img title={`${pokeName} Image`}  src={pokeImage} alt={pokeName} />
                 </div>
-                <h3 className='text-capitalize text-center my-0'>{pokeName}</h3>
+                <h3 title={pokeName} className='text-capitalize text-center my-0'>{pokeName}</h3>
             </div>
         </Link>
     )

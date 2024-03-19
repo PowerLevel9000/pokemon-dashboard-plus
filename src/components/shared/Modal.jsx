@@ -8,13 +8,13 @@ const Modal = () => {
         <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-xl">
                 <div className="modal-content">
-                    <div className="modal-header d-block">
+                    <div title='Modal Header' className="modal-header d-block">
                         <PokeHeader pokeName={title} pokeImage={image} />
                     </div>
-                    <div className="modal-body">
+                    <div title='Modal Body' className="modal-body">
                         {body}
                     </div>
-                    <div className="modal-footer">
+                    <div title='Modal Footer' className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <Link to={`/pokemon/${title}`} className="btn btn-primary">Details</Link>
                     </div>

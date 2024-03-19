@@ -9,6 +9,7 @@ export const pokemonApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
     endpoints: (builder) => ({
         getPokemonByName: builder.query({
+            // Custom query function to fetch short Details from the API by name
             queryFn: async (pName: string) => {
                 try {
                     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pName}`);
@@ -26,9 +27,11 @@ export const pokemonApi = createApi({
             },
         }),
         getPokemon: builder.query<ListResponse<PokemonList>, number | void>({
+            // build in query function to fetch data from the API
             query: (page: any = 1) => `pokemon?limit=25&offset=${page * 25 - 25}`,
         }),
         getPokemonType: builder.query({
+            // Custom query function to fetch types of pokemon from the API
             queryFn: async () => {
                 try {
                     const res = await fetch('https://pokeapi.co/api/v2/type');
@@ -43,6 +46,7 @@ export const pokemonApi = createApi({
             }
         }),
         getPokemonByType: builder.query({
+            // Custom query function to fetch pokemon from the API by type
             queryFn: async (type: string) => {
                 try {
                     const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
@@ -58,57 +62,7 @@ export const pokemonApi = createApi({
             },
         }),
         getPokemonDetail: builder.query({
-            // query: (name: string) => `pokemon/${name}`,
-            // transformResponse: (response: any) => {
-            //     // if (!response.ok) {
-            //     //     // Handle network error
-            //     //     return { error: `Network response was not ok ${response.status} ${response.statusText}` };
-            //     // }
-            
-            //     try {
-            //         const {
-            //             id,
-            //             name,
-            //             height,
-            //             weight,
-            //             base_experience,
-            //             types,
-            //             moves,
-            //             held_items,
-            //             stats,
-            //             abilities,
-            //             sprites: {
-            //                 front_shiny,
-            //                 other: {
-            //                     dream_world: { front_default: image }
-            //                 }
-            //             }
-            //         } = response;
-            
-            //         const typesArr = arrOutput(types, "type");
-            //         const abilitiesArr = arrOutput(abilities, "ability");
-            //         const moveArr = arrOutput(moves, "move");
-            //         const itemsArr = arrOutput(held_items, "item");
-            
-            //         return {
-            //             id,
-            //             name,
-            //             image,
-            //             front_shiny,
-            //             height,
-            //             weight,
-            //             base_experience,
-            //             typesArr,
-            //             abilitiesArr,
-            //             moveArr,
-            //             itemsArr,
-            //             stats,
-            //         };
-            //     } catch (error: any) {
-            //         // Handle any other errors that might occur during response transformation
-            //         return { error: `Error processing response: ${error.message}` };
-            //     }
-            // }
+            // Custom query function to fetch Details from the API by name
             queryFn: async (pokeName: string) => {
                 try {
                     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);

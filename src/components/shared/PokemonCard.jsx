@@ -5,13 +5,15 @@ import Loader from './Loader'
 import { showModal } from '../../redux/modalSlice'
 import { Link } from 'react-router-dom'
 import PokeHeader from './pokeHeader'
+import Error from './Error'
 
 const PokemonCard = ({ pokemonName }) => {
     const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName);
     const dispatch = useDispatch();
-
-    if (error) return <div>Error: {error}</div>
+    // if loading, show loader
     if (isLoading) return <Loader />
+    // if error, show error
+    if (error) return <Error error={error} data={pokemonName} />
 
     return (
         <>
@@ -20,6 +22,7 @@ const PokemonCard = ({ pokemonName }) => {
                 <Suspense fallback={<Loader />}>
                     <img
                         data-bs-toggle="modal"
+                        title={`Preview of ${data.name}`}
                         data-bs-target="#exampleModal"
                         onClick={() => dispatch(showModal({
                             title: data.name,
@@ -27,10 +30,11 @@ const PokemonCard = ({ pokemonName }) => {
                             image: data.front_default,
                         }))}
                         src={data.front_default} alt={data.name}
-                        height="200px" className="card-img-top p-2 poke-img" />
+                        height="200px" className="card-img-top p-2 poke-img"
+                    />
                 </Suspense>
                 <div className="card-body">
-                    <h5 className="card-title text-capitalize">{data.name}</h5>
+                    <h5 title={data.name} className="card-title text-capitalize">{data.name}</h5>
                 </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex gap-2">
@@ -46,7 +50,7 @@ const PokemonCard = ({ pokemonName }) => {
                 </ul>
                 <div className="card-body d-flex justify-content-between align-items-center">
                     <div className='w-50 d-flex gap-2'>
-                        <Link to={`/pokemon/${pokemonName}`} className="card-link btn btn-primary fs-6">Details</Link>
+                        <Link title={`See Details of ${pokemonName}`} to={`/pokemon/${pokemonName}`} className="card-link btn btn-primary fs-6">Details</Link>
                         <button
                             type="button" onClick={
                                 () => dispatch(showModal({
@@ -56,6 +60,7 @@ const PokemonCard = ({ pokemonName }) => {
                                 }))
                             }
                             className="btn btn-success fs-6"
+                            title={`Preview of ${data.name}`}
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Preview

@@ -7,13 +7,17 @@ import Loader from '../shared/Loader';
 import Error from '../shared/Error';
 const Details = () => {
     const { pokemonName } = useParams();
-    const { data, error, isLoading 
+    const { data, error, isLoading
     } = useGetPokemonDetailQuery(pokemonName);
+
+    // if loading, show loader
     if (isLoading) return <Loader />
+    // if error, show error
     if (error) return <Error error={error} />
+    // if no loading and no error, show data
     return (
         <main className='home-container'>
-            <div className='alert alert-success d-flex gap-3 p-3 align-items-center justify-content-center'>
+            <div title={`Detail title of ${pokemonName}`} className='alert alert-success d-flex gap-3 p-3 align-items-center justify-content-center'>
                 <div>
                     <h2>Details of the</h2>
                 </div>
