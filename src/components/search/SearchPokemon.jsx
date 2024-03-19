@@ -25,10 +25,10 @@ const Search = () => {
   }
 
   return (
-    <div className='container my-5'>
+    <section className='search-section w-75 container my-5'>
       <input
         type="text"
-        placeholder="Search Pokemon By Name or Id ex bulbasur or 1"
+        placeholder="Search Pokemon By Name or Number ex bulbasur or 1"
         value={search}
         onChange={debounceSearch}
         id='search'
@@ -40,7 +40,7 @@ const Search = () => {
             <PokemonCard pokemonName={data?.name} />
           </Suspense>)
       }
-    </div>
+    </section>
   )
 }
 

@@ -2,7 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useGetPokemonQuery } from '../../redux/pokemon/pokemon';
 import Button from '../Button';
 import PokemonCard from '../shared/PokemonCard';
-import TypeFilter from '../shared/TypeFilter';
+import TypeFilter from './TypeFilter';
 import Loader from '../shared/Loader';
 import Hero from '../Hero';
 
@@ -31,9 +31,9 @@ const Home = () => {
         };
     }
     return (
-        <>
+        <main className='home-container'>
             <Hero />
-            <TypeFilter setterFunction={() => console.log("setter")} fixed={scrollLength > 650} />
+            <TypeFilter setterFunction={() => console.log} fixed={scrollLength > 650} />
             {error && <div>Error</div>}
             <div className='pokemon-container'>
                 <div className="container  my-5">
@@ -63,7 +63,7 @@ const Home = () => {
                     disabled={data && data.count / 25 < page}
                 />
             </div>
-        </>
+        </main>
     );
 };
 

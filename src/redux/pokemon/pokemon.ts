@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+const arrOutput = (arr: any, property: any) => {
+    return arr.map((item: any) => item[property].name);
+}
+
 export const pokemonApi = createApi({
     reducerPath: 'pokemonApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
@@ -12,7 +16,7 @@ export const pokemonApi = createApi({
                         throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
                     }
                     const tempData = await res.json();
-                    const { id, name, abilities, sprites: { front_shiny, other: { dream_world:{front_default} } } } = tempData;
+                    const { id, name, abilities, sprites: { front_shiny, other: { dream_world: { front_default } } } } = tempData;
                     const typesArr = tempData.types.map((type: any) => type.type.name);
                     const abilitiesArr = abilities.map((ability: any) => ability.ability.name);
                     return { data: { id, name, typesArr, abilitiesArr, front_default, front_shiny } };
@@ -52,8 +56,62 @@ export const pokemonApi = createApi({
                     return { error: error.message };
                 }
             },
+        }),
+        getPokemonDetail: builder.query({
+            query: (name: string) => `pokemon/${name}`,
+            transformResponse: (response: any) => {
+                // if (!response.ok) {
+                //     // Handle network error
+                //     return { error: `Network response was not ok ${response.status} ${response.statusText}` };
+                // }
+            
+                try {
+                    const {
+                        id,
+                        name,
+                        height,
+                        weight,
+                        base_experience,
+                        types,
+                        moves,
+                        held_items,
+                        stats,
+                        abilities,
+                        sprites: {
+                            front_shiny,
+                            other: {
+                                dream_world: { front_default: image }
+                            }
+                        }
+                    } = response;
+            
+                    const typesArr = arrOutput(types, "type");
+                    const abilitiesArr = arrOutput(abilities, "ability");
+                    const moveArr = arrOutput(moves, "move");
+                    const itemsArr = arrOutput(held_items, "item");
+            
+                    return {
+                        id,
+                        name,
+                        image,
+                        front_shiny,
+                        height,
+                        weight,
+                        base_experience,
+                        typesArr,
+                        abilitiesArr,
+                        moveArr,
+                        itemsArr,
+                        stats,
+                    };
+                } catch (error: any) {
+                    // Handle any other errors that might occur during response transformation
+                    return { error: `Error processing response: ${error.message}` };
+                }
+            }
+            
         })
     }),
 });
 
-export const { useGetPokemonByNameQuery, useGetPokemonQuery, useGetPokemonByTypeQuery, useGetPokemonTypeQuery } = pokemonApi;
+export const { useGetPokemonByNameQuery, useGetPokemonQuery, useGetPokemonByTypeQuery, useGetPokemonTypeQuery, useGetPokemonDetailQuery } = pokemonApi;

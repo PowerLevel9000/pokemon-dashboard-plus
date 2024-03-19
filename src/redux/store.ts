@@ -10,7 +10,9 @@ const store = configureStore({
     },
 
     middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(pokemonApi.middleware);
+        return getDefaultMiddleware({
+            serializableCheck: false,
+        }).concat(pokemonApi.middleware);
     }
 });
 

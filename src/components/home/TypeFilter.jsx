@@ -1,5 +1,5 @@
 import { useGetPokemonTypeQuery } from '../../redux/pokemon/pokemon'
-import Loader from './Loader'
+import Loader from '../shared/Loader'
 
 const TypeFilter = ({ setterFunction, fixed }) => {
   const { data, error, isLoading } = useGetPokemonTypeQuery()
@@ -11,7 +11,7 @@ const TypeFilter = ({ setterFunction, fixed }) => {
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          <div className={fixed ? 'd-flex py-3 fixed-top justify-content-around badge-bg' :'d-flex py-3 justify-content-around badge-bg'}>
+          <div className={`d-flex py-3 ${fixed && "fixed-top"} flex-wrap justify-content-around badge-bg`}>
             <span className='badge bg-success text-capitalize' onClick={setterFunction("")}>
               All
             </span>
