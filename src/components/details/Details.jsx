@@ -21,10 +21,13 @@ const Details = () => {
                 <div>
                     <h2>Details of the</h2>
                 </div>
-                <PokeHeader pokeName={pokemonName} pokeImage={data&& 'image' in data && data?.image} />
+                <PokeHeader pokeName={pokemonName} pokeImage={data && 'image' in data && data?.image} />
             </div>
             <DetailCard {...data} />
-            {data && 'stats' in data && <DetailStats stat={data.stats} />}
+            <div className="card alert-success mx-auto my-5 d-flex justify-content align-items-center p-5 pt-3" style={{maxWidth: "800px"}}>
+                <PokeHeader pokeName={pokemonName} pokeImage={data && 'image' in data && data?.image} />
+                {data && 'stats' in data && <DetailStats stat={data.stats} pokeName={pokemonName} />}
+            </div>
         </main>
     )
 }
