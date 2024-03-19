@@ -49,7 +49,12 @@ const DetailCard = ({
         <div className="col-md-6 p-2">
           <div className="card-body">
             <h5 className="card-title text-capitalize">{name}</h5>
-            <div style={{ width: pokemonHeight() }} className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={10} aria-valuemin={0} aria-valuemax={100}></div>
+            <div title='Height' className='mb-2'>
+              <b>Height: {height}</b>
+              <div className="progress">
+                <div style={{ width: pokemonHeight() }} className="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" aria-valuenow={10} aria-valuemin={0} aria-valuemax={100}></div>
+              </div>
+            </div>
             <div title='Weight' className='mb-2'>
               <b>Weight: {weight}</b>
               <div className="progress">
