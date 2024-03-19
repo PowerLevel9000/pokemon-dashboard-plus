@@ -21,5 +21,5 @@ export const useDocumentTitle = (title: string, prevailOnUnmount: boolean = fals
         if (!prevailOnUnmount) {
             document.title = defaultTitle.current;
         }
-    }, [])
+    }, [prevailOnUnmount])
 }
