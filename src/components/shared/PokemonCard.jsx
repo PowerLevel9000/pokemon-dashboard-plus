@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useGetPokemonByNameQuery } from '../../redux/pokemon/pokemon'
 import Loader from './Loader'
@@ -9,6 +9,7 @@ import Error from './Error'
 
 const PokemonCard = ({ pokemonName }) => {
     const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName);
+    const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     // if loading, show loader
     if (isLoading) return <Loader />
@@ -16,24 +17,25 @@ const PokemonCard = ({ pokemonName }) => {
     if (error) return <Error error={error} data={pokemonName} />
 
     return (
-        <>
+        <div className="col" key={pokemonName}>
             <div className="card pokemon-card p-2">
                 <PokeHeader pokeName={data.name} pokeImage={data.front_shiny} />
-                <Suspense fallback={<Loader />}>
-                    <img
-                        data-bs-toggle="modal"
-                        title={`Preview of ${data.name}`}
-                        data-bs-target="#exampleModal"
-                        onClick={() => dispatch(showModal({
-                            title: data.name,
-                            body: <img height="400px" width="100%" src={data.front_default} alt={data.name} />,
-                            image: data.front_default,
-                        }))}
-                        src={data.front_default} 
-                        alt={data.name}
-                        height="200px" className="card-img-top p-2 poke-img"
-                    />
-                </Suspense>
+                {!loaded && <Loader />}
+                <img
+                    data-bs-toggle="modal"
+                    title={`Preview of ${data.name}`}
+                    data-bs-target="#exampleModal"
+                    onClick={() => dispatch(showModal({
+                        title: data.name,
+                        body: <img height="400px" width="100%" src={data.front_default} alt={data.name} />,
+                        image: data.front_default,
+                    }))}
+                    src={data.front_default}
+                    alt={data.name}
+                    style={{ display: loaded ? 'block' : 'none' }}
+                    onLoad={() => setLoaded(true)}
+                    height="200px" className="card-img-top p-2 poke-img"
+                />
                 <div className="card-body">
                     <h5 title={data.name} className="card-title text-capitalize">{data.name}</h5>
                 </div>
@@ -67,10 +69,12 @@ const PokemonCard = ({ pokemonName }) => {
                             Preview
                         </button>
                     </div>
-                    <i className='fa-regular fa-heart'></i>
+                    <i
+                        className='fa-regular fa-heart'
+                    ></i>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -8,9 +8,9 @@ import Hero from '../Hero';
 import Error from '../shared/Error';
 
 const Home = () => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState<number>(1);
     const { data, error, isFetching } = useGetPokemonQuery(page);
-    const [scrollLength, setScrollLength] = useState(0)
+    const [scrollLength, setScrollLength] = useState<number>(0)
 
     // Scroll event listener
     useEffect(() => {
@@ -24,13 +24,13 @@ const Home = () => {
     }, [scrollLength]);
 
     // Increment and decrement page
-    const incrementor = () => {
+    const incrementor = (): void => {
         if (data && data.count / 25 > 0) {
             setPage(page + 1)
         };
     }
 
-    const decrementor = () => {
+    const decrementor = (): void => {
         if (page > 1) {
             setPage(page - 1)
         };
@@ -47,9 +47,7 @@ const Home = () => {
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
                         <Suspense fallback={<Loader />}>
                             {data && data.results.map((pokemon: Pokemon) => (
-                                <div className="col" key={pokemon.name}>
-                                    <PokemonCard pokemonName={pokemon.name} />
-                                </div>
+                                <PokemonCard key={pokemon.name} pokemonName={pokemon.name} />
                             ))}
                         </Suspense>
                     </div>
@@ -64,7 +62,7 @@ const Home = () => {
                 />
                 <Button
                     type="button"
-                    tile={data && data.count / 25 < page? "next" : "disable"}
+                    tile={data && data.count / 25 < page ? "next" : "disable"}
                     className={scrollLength > 650 ? "btn btn-primary position-fixed top-50 end-0" : "hidden"}
                     button={"next>>"}
                     onClick={() => incrementor()}

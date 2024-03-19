@@ -11,14 +11,14 @@ const DetailCard = ({
   abilitiesArr,
   moveArr,
   itemsArr,
-}) => {
+}: PokemonDetail) => {
   const pokemonHeight = () => {
-    if(!height) return "0%" // no height
-    if(height < 15) return "15%" // tiny
-    if(height < 30) return "30%" // small
-    if(height < 50) return "50%" // medium
-    if(height < 70) return "70%" // large
-    if(height > 70) return "100%" // gigantic
+    if (!height) return "0%" // no height
+    if (height < 15) return "15%" // tiny
+    if (height < 30) return "30%" // small
+    if (height < 50) return "50%" // medium
+    if (height < 70) return "70%" // large
+    if (height > 70) return "100%" // gigantic
   }
 
   const pokemonWeight = () => {
@@ -30,7 +30,7 @@ const DetailCard = ({
     if (weight > 400) return "100%" // extra heavy
   }
 
-  const pokemonBaseExperience = () => {
+  const pokemonBaseExperience = (): string | undefined => {
     if (!base_experience) return "0%" // no base experience
     if (base_experience < 50) return "10%" // low
     if (base_experience < 150) return "30%" // medium
@@ -51,20 +51,20 @@ const DetailCard = ({
             <h5 className="card-title text-capitalize">{name}</h5>
             <div title='Height' className='mb-2'>
               <b>Height: {height}</b>
-              <div class="progress">
-                <div style={{ width: pokemonHeight() }} class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              <div className="progress">
+                <div style={{ width: pokemonHeight() }} className="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" aria-valuenow={10} aria-valuemin={0} aria-valuemax={100}></div>
               </div>
             </div>
             <div title='Weight' className='mb-2'>
               <b>Weight: {weight}</b>
-              <div class="progress">
-                <div style={{ width: pokemonWeight() }} class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              <div className="progress">
+                <div style={{ width: pokemonWeight() }} className="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" aria-valuenow={10} aria-valuemin={0} aria-valuemax={100}></div>
               </div>
             </div>
             <div title='Base Experience' className='mb-2'>
               <b>Base Experience: {base_experience}</b>
-              <div class="progress">
-                <div style={{ width: pokemonBaseExperience() }} class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              <div className="progress">
+                <div style={{ width: pokemonBaseExperience() }} className="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow={10} aria-valuemin={0} aria-valuemax={100}></div>
               </div>
             </div>
             <div title='Abilities' className="abilities alert alert-success">

@@ -59,7 +59,7 @@ a {
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: black;
   overflow: hidden;
 }
 
@@ -82,7 +82,8 @@ a {
 
 .hero p {
   font-size: 25px;
-  font-weight: 400;
+  font-weight: 800;
+  width: 50%;
   margin-bottom: 40px;
 }
 
@@ -140,4 +141,18 @@ a {
 @keyframes blink-caret {
   from, to { border-color: transparent }
   50% { border-color: orange; }
+}
+@media screen and (max-width > 768px){
+  .hero-container {
+    flex-direction: column;
+  }
+  .hero h1 {
+    width: 80%;
+  }
+  .hero p {
+    width: 80%;
+  }
+  .hero button {
+    width: 80%;
+  }
 }
