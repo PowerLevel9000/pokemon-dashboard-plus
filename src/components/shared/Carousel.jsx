@@ -5,7 +5,7 @@ const Carousel = ({ images }) => (
             <div className="carousel-inner">
                 {images.map((image) => (
                     <div key={image} className="card-img-top carousel-item active">
-                        <img src={image} className="d-block w-100" alt="..." />
+                        <img src={image} className="d-block w-100" alt="cards" />
                     </div>
                 ))}
             </div>

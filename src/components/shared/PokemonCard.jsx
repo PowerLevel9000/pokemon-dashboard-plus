@@ -26,10 +26,11 @@ const PokemonCard = ({ pokemonName }) => {
                         data-bs-target="#exampleModal"
                         onClick={() => dispatch(showModal({
                             title: data.name,
-                            body: <img height="400px" width="100%" src={data.front_default} />,
+                            body: <img height="400px" width="100%" src={data.front_default} alt={data.name} />,
                             image: data.front_default,
                         }))}
-                        src={data.front_default} alt={data.name}
+                        src={data.front_default} 
+                        alt={data.name}
                         height="200px" className="card-img-top p-2 poke-img"
                     />
                 </Suspense>
@@ -55,7 +56,7 @@ const PokemonCard = ({ pokemonName }) => {
                             type="button" onClick={
                                 () => dispatch(showModal({
                                     title: data.name,
-                                    body: <img height="400px" width="100%" src={data.front_default} />,
+                                    body: <img height="400px" width="100%" src={data.front_default} alt={data.name} />,
                                     image: data.front_default,
                                 }))
                             }
@@ -71,7 +72,6 @@ const PokemonCard = ({ pokemonName }) => {
             </div>
         </>
     )
-
 }
 
 export default PokemonCard
