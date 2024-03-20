@@ -30,22 +30,22 @@ export const pokemonApi = createApi({
             // build in query function to fetch data from the API
             query: (page: any = 1) => `pokemon?limit=25&offset=${page * 25 - 25}`,
         }),
-        getPokemonType: builder.query<PokemonTypeList[] | Error, null>({
-            // Custom query function to fetch types of pokemon from the API
-            queryFn: async () => {
-                try {
-                    const res = await fetch('https://pokeapi.co/api/v2/type');
-                    if (!res.ok) {
-                        throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
-                    }
-                    const tempData = await res.json();
-                    return { data: tempData.results };
-                } catch (error: any) {
-                    return { error: error };
-                }
-            }
-        }),
-        getPokemonByType: builder.query<string, string>({
+        // getPokemonType: builder.query<PokemonTypeList[] | Error, null>({
+        //     // Custom query function to fetch types of pokemon from the API
+        //     queryFn: async () => {
+        //         try {
+        //             const res = await fetch('https://pokeapi.co/api/v2/type');
+        //             if (!res.ok) {
+        //                 throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
+        //             }
+        //             const tempData = await res.json();
+        //             return { data: tempData.results };
+        //         } catch (error: any) {
+        //             return { error: error };
+        //         }
+        //     }
+        // }),
+        getPokemonByType: builder.query<string[], string>({
             // Custom query function to fetch pokemon from the API by type
             queryFn: async (type: string) => {
                 try {
@@ -54,7 +54,8 @@ export const pokemonApi = createApi({
                         throw new Error(`Network response was not ok ${res.status} ${res.statusText}`);
                     }
                     const tempData = await res.json();
-                    const { pokemon: { name } } = tempData.pokemon;
+                    const pokemon = tempData.pokemon;
+                    const name = pokemon.map((poke: any) => poke.pokemon.name);
                     return { data: name };
                 } catch (error: any) {
                     return { error: error.message };
@@ -117,4 +118,4 @@ export const pokemonApi = createApi({
     }),
 });
 
-export const { useGetPokemonByNameQuery, useGetPokemonQuery, useGetPokemonByTypeQuery, useGetPokemonTypeQuery, useGetPokemonDetailQuery } = pokemonApi;
+export const { useGetPokemonByNameQuery, useGetPokemonQuery, useGetPokemonByTypeQuery, useGetPokemonDetailQuery } = pokemonApi;

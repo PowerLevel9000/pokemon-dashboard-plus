@@ -1,36 +1,27 @@
-import { useGetPokemonTypeQuery } from '../../redux/pokemon/pokemon'
-import Error from '../shared/Error'
-import Loader from '../shared/Loader'
+import { useDispatch } from 'react-redux'
+import { setType } from '../../redux/feature/typeFilterSlice'
 
-const TypeFilter = ({ setterFunction, fixed }) => {
-  const { data, error, isLoading } = useGetPokemonTypeQuery()
+const TypeFilter = ({ fixed }) => {
+  const types = ["all", "normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric ", "psychic", "ice", "dragon", "dark", "fairy",]
+  const dispatch = useDispatch();
   return (
     <div>
-      {
-        isLoading ? (
-          <Loader />
-        ) : error ? (
-          <Error error={error} data={"Type"} />
-        ) : (
-          <div className={`d-flex py-3 ${fixed && "fixed-top"} flex-wrap gap-2 justify-content-around badge-bg`}>
-            <span title='All filter' className='badge bg-success text-capitalize' onClick={setterFunction("")}>
-              All
-            </span>
-            {
-              data.map((item) => (
-                <span 
-                  key={item.name}
-                  title={`type filter ${item.name}`}
-                  className='badge bg-success text-capitalize'
-                  onClick={setterFunction(item.name)}
-                >
-                  {item.name}
-                </span>
-              ))
-            }
-          </div>
-        )
-      }
+      <div className={`d-flex py-3 ${fixed && "fixed-top"} flex-wrap gap-2 justify-content-around badge-bg`}>
+        <span title='All filter' className='badge bg-success text-capitalize' onClick={() => dispatch(setType("all"))}>
+          All
+        </span>
+        {types.map((item) => (
+          <span
+            key={item}
+            title={`type filter ${item}`}
+            className='badge bg-success text-capitalize'
+            onClick={() => dispatch(setType(item))}
+          >
+            {item}
+          </span>
+        ))
+        }
+      </div>
     </div>
   )
 }
