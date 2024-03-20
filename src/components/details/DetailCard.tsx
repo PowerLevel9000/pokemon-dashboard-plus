@@ -4,6 +4,7 @@ import Badges from './DetailBadge'
 const DetailCard = ({
   name,
   image,
+  front_shiny,
   height,
   weight,
   base_experience,
@@ -41,10 +42,10 @@ const DetailCard = ({
 
   return (
     <div className="detail-card card mb-3 mx-auto" style={{ maxWidth: "800px" }}>
-      <PokeHeader pokeImage={image} pokeName={name} />
+      <PokeHeader pokeImage={image || front_shiny} pokeName={name} />
       <div className="row g-0">
         <div className="col-md-6">
-          <img src={image} className="img-fluid rounded-start" alt={name} style={{ height: "70vh", width: "100%" }} />
+          <img src={image || front_shiny} className="img-fluid rounded-start" alt={name} style={{ height: "70vh", width: "100%" }} />
         </div>
         <div className="col-md-6 p-2">
           <div className="card-body">

@@ -101,6 +101,10 @@ a {
   background-color: #bada55;
 }
 
+.courser-pointer {
+  cursor: pointer;
+}
+
 .pokemon-container {
   min-height: 90vh;
 }

@@ -8,12 +8,11 @@ import Hero from '../Hero';
 import Error from '../shared/Error';
 import { useDispatch, useSelector } from 'react-redux';
 import TypePokemon from './TypePokemon';
-import { toggleNext, togglePrevious } from '../../redux/feature/typeFilterSlice';
+import { setNext, setPage, setPrevious } from '../../redux/feature/typeFilterSlice';
 
 const Home = () => {
-    const [page, setPage] = useState<number>(1);
+    const { type, next, previous, page } = useSelector((state: any) => state.typeFilter);
     const { data, error, isFetching } = useGetPokemonQuery(page);
-    const { type, next, previous } = useSelector((state: any) => state.typeFilter);
     const dispatch = useDispatch();
     const [scrollLength, setScrollLength] = useState<number>(0)
 
@@ -28,32 +27,23 @@ const Home = () => {
         };
     }, [scrollLength]);
 
-    const controlDisable = () => {
-        if (type === "all" && data && data.results.length < 25) {
-            return next
-        }
-        if (type !== "all" && page > 6) {
-            return true
-        }
-    }
-
     // Increment and decrement page
     const nextPagination = (): void => {
         if ((data && data.count / 25 > 0)) {
-            setPage(page + 1)
-            dispatch(togglePrevious(false))
+            dispatch(setPage(page + 1))
+            dispatch(setPrevious(false))
         } else if (data && data.results.length < 25) {
-            setPage(1)
-            dispatch(toggleNext(true))
+            dispatch(setPage(1))
+            dispatch(setNext(true))
         }
     }
 
     const decrementor = (): void => {
         if (page > 1) {
-            setPage(page - 1)
-            dispatch(togglePrevious(false))
+            dispatch(setPage(page - 1))
+            dispatch(setPrevious(false))
         } else if (page === 2) {
-            dispatch(togglePrevious(true))
+            dispatch(setPrevious(true))
         }
     }
 
@@ -80,7 +70,7 @@ const Home = () => {
                     className={scrollLength > 650 ? "btn btn-primary position-fixed top-50 start-0" : "hidden"}
                     button={"<<Back"} onClick={() => decrementor()}
                     isLoading={isFetching}
-                    disabled={previous}
+                    disabled={page === 1 || previous}
                 />
                 <Button
                     type="button"
@@ -89,7 +79,7 @@ const Home = () => {
                     button={"next>>"}
                     onClick={() => nextPagination()}
                     isLoading={isFetching}
-                    disabled={controlDisable()}
+                    disabled={next}
                 />
             </div>
         </main>
