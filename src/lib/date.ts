@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 // This function would be used in future to calculate the time difference between the current time and the time when the order was fulfilled.
 export const timeDiff = (fulfilledTimeStamp: any) => {
     const now: Date = new Date();
@@ -22,4 +23,9 @@ export const useDocumentTitle = (title: string, prevailOnUnmount: boolean = fals
             document.title = defaultTitle.current;
         }
     }, [prevailOnUnmount])
+}
+
+export const useIsFavorite = (name: any) => {
+    const {favItems} = useSelector((state: any) => state.favLocalStorage);
+    return favItems[name] ? true : false;
 }

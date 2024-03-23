@@ -1,12 +1,30 @@
+import { Suspense } from "react"
 import { useDocumentTitle } from "../../lib/date"
+import Loader from "../shared/Loader"
+import PokemonCard from "../shared/PokemonCard"
+import { useSelector } from "react-redux"
 
 const Favorite = () => {
-  useDocumentTitle('Favorite Pokemons')
+  useDocumentTitle('Favorite Pokemons');
+  const { favItems } = useSelector((state: any) => state.favLocalStorage);
   return (
-  <div className='card d-flex justify-content-center align-items-center m-5 p-5' style={{ minHeight: "60.9vh" }}>
-    <h1 className='alert alert-info'>Under Construction</h1>
-    <p className='alert alert-info'>Soon you will see your favorite pokemon here</p>
-  </div>
-)}
+    <>
+      <div className="alert alert-success">
+        <h1 className="text-center favorite-title">Favorite Pokemons</h1>
+      </div>
+      <div className="pokemon-container">
+        <div className="container  my-5">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            {Object.values(favItems).map((value, index) => (
+              <Suspense key={index} fallback={<Loader />}>
+                <PokemonCard pokemonName={value} />
+              </Suspense>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
 
 export default Favorite

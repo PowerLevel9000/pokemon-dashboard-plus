@@ -25,13 +25,13 @@ const TypeFilter = ({ fixed }) => {
       </div>
       <button
         className={`${!fixed && 'd-none'} position-absolute top-50 start-0 translate-middle-y fa-solid fa-arrow-left`}
-        onClick={(()=> {
+        onClick={(() => {
           document.getElementById('filter').scrollBy(-100, 0)
         })}
       ></button>
       <button
         className={`${!fixed && 'd-none'} position-absolute top-50 end-0 translate-middle-y fa-solid fa-arrow-right`}
-        onClick={(()=> {
+        onClick={(() => {
           document.getElementById('filter').scrollBy(100, 0)
         })}
       ></button>

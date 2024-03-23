@@ -23,12 +23,14 @@ const Details = () => {
                 <div>
                     <h2>Details of the</h2>
                 </div>
-                <PokeHeader pokeName={data?.name} pokeImage={(data && 'image' in data && data?.image) || (data&&data?.front_shiny)} />
+                <PokeHeader pokeName={data?.name} pokeImage={(data && 'image' in data && data?.image) || (data && data?.front_shiny)} />
             </div>
             <DetailCard {...data} />
-            <div className="card alert-success mx-auto my-5 d-flex justify-content align-items-center p-5 pm-4 ps-3 pt-3" style={{maxWidth: "800px"}}>
-                <PokeHeader pokeName={data?.name} pokeImage={(data && 'image' in data && data?.image) || (data && data?.front_shiny)} />
-                {data && 'stats' in data && <DetailStats stat={data.stats} pokeName={data?.name} />}
+            <div className="statistics">
+                <div className="card alert-success mx-auto my-5 d-flex justify-content align-items-center p-5 pm-4 ps-3 pt-3" style={{ maxWidth: "800px" }}>
+                    <PokeHeader pokeName={data?.name} pokeImage={(data && 'image' in data && data?.image) || (data && data?.front_shiny)} />
+                    {data && 'stats' in data && <DetailStats stat={data.stats} pokeName={data?.name} />}
+                </div>
             </div>
         </main>
     )

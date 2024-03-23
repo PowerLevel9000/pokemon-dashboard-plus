@@ -1,13 +1,15 @@
-import { Suspense, useEffect, useState } from 'react'
-import { useGetAllPokemonNameQuery, useGetPokemonByNameQuery } from '../../redux/pokemon/pokemon';
+import { Suspense, useState } from 'react'
+import { useGetAllPokemonNameQuery } from '../../redux/pokemon/pokemon';
 import PokemonCard from '../shared/PokemonCard';
 import Loader from '../shared/Loader';
 import Error from '../shared/Error';
 import { useDocumentTitle } from '../../lib/date';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Search = () => {
   const [search, setSearch] = useState('');
+  const { inMobile: isMobile } = useSelector(state => state.typeFilter)
   const { data } = useGetAllPokemonNameQuery();
   const [firstSixMatching, setFirstSixMatching] = useState([]);
   const [index, setIndex] = useState(0);
@@ -21,7 +23,7 @@ const Search = () => {
       const matching = data.filter((item) =>
         item.includes(e.target.value),
       );
-      setFirstSixMatching(matching.splice(0, 14));
+      isMobile? setFirstSixMatching(matching.splice(0, 8)): setFirstSixMatching(matching.splice(0, 14));
     } else {
       setFirstSixMatching([]);
     }
@@ -53,7 +55,7 @@ const Search = () => {
 
   return (
     <section className='search-section container my-5'>
-      <div className="search-container w-50 mx-auto mb-3 position-relative">
+      <div className={`search-container ${isMobile? "w-100" : "w-50"} mx-auto mb-3 position-relative`}>
         <input
           title='Search Pokemon by Name or Number'
           type="text"
@@ -64,16 +66,16 @@ const Search = () => {
           autoFocus={true}
           id='search'
           className='form-control'
+          autoComplete='false'
         />
-
         {firstSixMatching.length === 0 && search !== "" && (
           <div className="mt-5">
-            <Error 
-            className="mt-4" 
-            error={`No Pokemon Found Name Matching with ${search}`} />
+            <Error
+              className="mt-4"
+              error={`No Pokemon Found Name Matching with ${search}`} />
           </div>
         )}
-        <ul className='position-absolute d-flex justify-content-center flex-wrap gap-2 w-100 ms-0 ps-0 alert-success'>
+        <ul className={`position-absolute d-flex justify-content-center ${isMobile? 'flex-column': 'gap-2'} rounded-bottom flex-wrap  w-100 ms-0 ps-0 alert-success`}>
           {firstSixMatching.map((item, index) => (
             <li key={index} className='list-group-item p-0 d-block'>
               <button
@@ -90,7 +92,7 @@ const Search = () => {
           ))}
         </ul>
       </div>
-      <div className='pokemon-container'>
+      {!isMobile && <div className='pokemon-container'>
         <div className="container  my-5">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
             <Suspense fallback={<Loader />}>
@@ -100,7 +102,7 @@ const Search = () => {
             </Suspense>
           </div>
         </div>
-      </div>
+      </div>}
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useGetPokemonQuery } from '../../redux/pokemon/pokemon';
 import Button from '../Button';
 import PokemonCard from '../shared/PokemonCard';
@@ -9,13 +9,14 @@ import Error from '../shared/Error';
 import { useDispatch, useSelector } from 'react-redux';
 import TypePokemon from './TypePokemon';
 import { setNext, setPage, setPrevious } from '../../redux/feature/typeFilterSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    const { type, next, previous, page } = useSelector((state: any) => state.typeFilter);
+    const { type, next, previous, page, inMobile: isMobile } = useSelector((state: any) => state.typeFilter);
     const { data, error, isFetching } = useGetPokemonQuery(page);
     const dispatch = useDispatch();
     const [scrollLength, setScrollLength] = useState<number>(0)
-
+    const navigate = useNavigate()
     // Scroll event listener
     useEffect(() => {
         const handleScroll = () => {
@@ -36,6 +37,7 @@ const Home = () => {
             dispatch(setPage(1))
             dispatch(setNext(true))
         }
+        navigate('/#filter')
     }
 
     const decrementor = (): void => {
@@ -45,6 +47,7 @@ const Home = () => {
         } else if (page === 2) {
             dispatch(setPrevious(true))
         }
+        navigate('/#filter')
     }
 
     return (
@@ -67,16 +70,16 @@ const Home = () => {
                 <Button
                     title={previous ? "Back" : "disable"}
                     type="button"
-                    className={scrollLength > 650 ? "btn btn-primary position-fixed top-50 start-0" : "hidden"}
-                    button={"<<Back"} onClick={() => decrementor()}
+                    className={scrollLength > 650 ? "btn btn-secondary paginator position-fixed top-50 start-0" : "hidden"}
+                    button={isMobile ? "<<" : "<<Back"} onClick={() => decrementor()}
                     isLoading={isFetching}
                     disabled={page === 1 || previous}
                 />
                 <Button
                     type="button"
                     tile={next ? "next" : "disable"}
-                    className={scrollLength > 650 ? "btn btn-primary position-fixed top-50 end-0" : "hidden"}
-                    button={"next>>"}
+                    className={scrollLength > 650 ? "btn btn-secondary paginator position-fixed top-50 end-0" : "hidden"}
+                    button={isMobile ? ">>" : "next>>"}
                     onClick={() => nextPagination()}
                     isLoading={isFetching}
                     disabled={next}

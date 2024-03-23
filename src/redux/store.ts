@@ -3,11 +3,13 @@ import { pokemonApi } from "./pokemon/pokemon";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import modalSlice from "./feature/modalSlice";
 import typeFilterSlice from "./feature/typeFilterSlice";
+import favLocalStorageSlice from "./feature/favLocalStorageSlice";
 
 const store = configureStore({
     reducer: {
         modal: modalSlice,
         typeFilter: typeFilterSlice,
+        favLocalStorage: favLocalStorageSlice,
         [pokemonApi.reducerPath]: pokemonApi.reducer,
     },
     

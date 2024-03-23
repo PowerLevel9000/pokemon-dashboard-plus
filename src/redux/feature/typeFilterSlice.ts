@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    inMobile: false,
     type: "all",
     page: 1,
     previous: true,
@@ -26,9 +27,12 @@ const typeFilterSlice = createSlice({
         },
         setDataCountOfNotAllType: (state, action) => {
             state.dataCountOfNotAllType = action.payload;  
+        },
+        setIsMobile: (state, action) => {
+            state.inMobile = action.payload;
         }
     }
 });
 
-export const { setType, setNext, setPrevious, setDataCountOfNotAllType, setPage } = typeFilterSlice.actions;
+export const { setType, setNext, setPrevious, setDataCountOfNotAllType, setPage,setIsMobile } = typeFilterSlice.actions;
 export default typeFilterSlice.reducer;
