@@ -1,15 +1,27 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useGetPokemonByNameQuery } from '../../redux/pokemon/pokemon'
 import Loader from './Loader'
 import { showModal } from '../../redux/feature/modalSlice'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PokeHeader from './pokeHeader'
 import Error from './Error'
+import { setPage, setType } from '../../redux/feature/typeFilterSlice'
 
 const PokemonCard = ({ pokemonName }) => {
     const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName);
+    const { type } = useSelector((store) => store.typeFilter);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const typeRender = (query) => {
+        if (query === type) return
+        dispatch(setType(query))
+        dispatch(setPage(1));
+        if (window.location.pathname !== "/") {
+            console.log("navigation")
+            navigate('/#filter')
+        }
+    }
     // if loading, show loader
     if (isLoading) return <Loader />
     // if error, show error
@@ -30,7 +42,7 @@ const PokemonCard = ({ pokemonName }) => {
                     }))}
                     src={data.front_default || data.front_shiny}
                     alt={data.name}
-                    height="200px" 
+                    height="200px"
                     className="card-img-top courser-pointer p-2 poke-img"
                 />
                 <div className="card-body">
@@ -42,9 +54,12 @@ const PokemonCard = ({ pokemonName }) => {
                         {' '}
                         {
                             data.typesArr.map(type => (
-                                <span className='badge bg-info text-capitalize'>
+                                <button
+                                    className='badge bg-info text-capitalize'
+                                    onClick={() => typeRender(type)}
+                                >
                                     {type}
-                                </span>))
+                                </button>))
                         }
                     </li>
                 </ul>

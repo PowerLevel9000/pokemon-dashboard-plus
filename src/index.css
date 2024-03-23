@@ -117,6 +117,20 @@ a {
   min-height: 50vh;
 }
 
+.search-section ul {
+  z-index: 2;
+  background-color: #f5f5f5c7 !important;
+}
+
+.search-section ul li {
+  background-color: green;
+  color: white;
+}
+
+.search-section ul li:hover {
+  background-color: #deff39;
+}
+
 .pokemon-card {
   background-color: #f5f5f5ef;
   overflow: hidden;
@@ -125,6 +139,44 @@ a {
 .badge-bg {
   background-color: rgba(240, 248, 255, 0.752);
 }
+
+#filter::-webkit-scrollbar {
+  display: none;
+}
+
+#filter {
+  overflow-x: scroll;
+}
+
+#filter button {
+  margin-left: -10px;
+}
+
+.fa-arrow-left {
+  height: 100%;
+  background-color: rgba(0, 128, 0, 0.61);
+  cursor: pointer;
+  color: white;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 0 10px 0 rgba(0, 128, 0, 0.61);
+}
+
+.fa-arrow-right {
+  height: 100%;
+  background-color: rgba(0, 128, 0, 0.604);
+  cursor: pointer;
+  color: white;
+  border-radius: 16px 0 0 16px;
+  box-shadow: 0 0 10px 0 rgba(0, 128, 0, 0.61);
+}
+
+.modal-body, .modal-content {
+  background-color: transparent !important;
+  border: none;
+}
+
+.modal-body img {
+  filter: drop-shadow(3px 3px 5px green) sepia(0) drop-shadow(-3px -3px 5px green);}
 
 ::-webkit-scrollbar {
   width: 10px;

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { usePrefetch } from "../redux/pokemon/pokemon";
 
 const Navigation = () => {
+    const preFetch = usePrefetch("getAllPokemonName");
     // Navigation items
     const navItems = [
         { name: "Home", path: "/" },
@@ -19,7 +21,14 @@ const Navigation = () => {
                     <ul className="navbar-nav">
                         {navItems.map((item, index) => (
                             <li className="nav-item" key={index}>
-                                <Link title="Navigation link" className="nav-link" to={item.path}>{item.name}</Link>
+                                <Link
+                                    title="Navigation link"
+                                    className="nav-link"
+                                    to={item.path}
+                                    onMouseEnter={item.name === "Search" ? () => preFetch() : null}
+                                >
+                                    {item.name}
+                                </Link>
                             </li>
                         ))}
                     </ul>

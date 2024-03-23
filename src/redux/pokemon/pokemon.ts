@@ -30,6 +30,16 @@ export const pokemonApi = createApi({
             // build in query function to fetch data from the API
             query: (page: any = 1) => `pokemon?limit=25&offset=${page * 25 - 25}`,
         }),
+        getAllPokemonName: builder.query<string[], undefined | void>({
+            // build in query function to fetch data from the API
+            query: () => `pokemon?limit=1000000&offset=0`,
+            transformResponse: (response: any) => {
+                if (response) {
+                    const { results } = response;
+                    return results.map((poke: any) => poke.name);
+                }
+            }
+        }),
         // getPokemonType: builder.query<PokemonTypeList[] | Error, null>({
         //     // Custom query function to fetch types of pokemon from the API
         //     queryFn: async () => {
@@ -118,4 +128,4 @@ export const pokemonApi = createApi({
     }),
 });
 
-export const { useGetPokemonByNameQuery, useGetPokemonQuery, useGetPokemonByTypeQuery, useGetPokemonDetailQuery } = pokemonApi;
+export const { useGetPokemonByNameQuery, useGetPokemonQuery, useGetPokemonByTypeQuery, useGetPokemonDetailQuery, usePrefetch, useGetAllPokemonNameQuery } = pokemonApi;
