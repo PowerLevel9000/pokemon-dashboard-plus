@@ -1,22 +1,8 @@
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 const Modal = () => {
-    const { body, isOpen } = useSelector(store => store.modal);
-
-    useEffect(() => {
-        const bodyElement = document.body;
-        if (isOpen) {
-            bodyElement.classList.add('modal-open');
-        } else {
-            bodyElement.classList.remove('modal-open');
-        }
-
-        return () => {
-            bodyElement.classList.remove('modal-open');
-        };
-    }, [isOpen]);
-
+    const { body } = useSelector(store => store.modal);
+    
     return (
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-xl">

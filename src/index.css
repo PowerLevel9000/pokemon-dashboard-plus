@@ -122,12 +122,11 @@ a {
   background-color: #f5f5f5c7 !important;
 }
 
-.search-section ul li {
-  background-color: green;
-  color: white;
+.search-section ul button {
+  background-color: rgba(20, 190, 20, 0.573);
 }
 
-.search-section ul li:hover {
+.search-section ul button:hover {
   background-color: #deff39;
 }
 
