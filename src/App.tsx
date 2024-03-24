@@ -4,7 +4,7 @@ import Details from './components/details/Details';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Search from './components/search/SearchPokemon';
-import Favorite from './components/faviroute/Favorite';
+import Favorite from './components/favourite/Favorite';
 import Default404 from './components/default/DefaultPage404';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
