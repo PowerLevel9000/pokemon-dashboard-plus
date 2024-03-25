@@ -20,10 +20,11 @@ const Search = () => {
   const handelChange = (e) => {
     setSearch(e.target.value);
     if (e.target.value !== "") {
+      if (parseInt(e.target.value)) return setFirstSixMatching([data[e.target.value - 1]]);
       const matching = data.filter((item) =>
-        item.includes(e.target.value),
+        item.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      isMobile? setFirstSixMatching(matching.splice(0, 8)): setFirstSixMatching(matching.splice(0, 14));
+      isMobile ? setFirstSixMatching(matching.splice(0, 8)) : setFirstSixMatching(matching.splice(0, 14));
     } else {
       setFirstSixMatching([]);
     }
@@ -75,7 +76,7 @@ const Search = () => {
               error={`No Pokemon Found Name Matching with ${search}`} />
           </div>
         )}
-        <ul className={`position-absolute d-flex justify-content-center ${isMobile? 'flex-column': 'gap-2'} rounded-bottom flex-wrap  w-100 ms-0 ps-0 alert-success`}>
+        <ul className={`position-absolute d-flex justify-content-center ${isMobile ? 'flex-column' : 'gap-2'} rounded-bottom flex-wrap  w-100 ms-0 ps-0 alert-success`}>
           {firstSixMatching.map((item, index) => (
             <li key={index} className='list-group-item p-0 d-block'>
               <button
