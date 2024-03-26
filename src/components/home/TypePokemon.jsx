@@ -10,23 +10,23 @@ import { useDispatch } from 'react-redux';
 const TypePokemon = ({ type, page }) => {
     const { data, error, isLoading } = useGetPokemonByTypeQuery(type);
     const [dataAvailable, setDataAvailable] = useState(true);
+    const [pageData, setPageData] = useState([]);
     const dispatch = useDispatch();
-    const paginateData = data && data.slice((page - 1) * 15, page * 15);
     useEffect(() => {
-        (() => {
-            if (data && data.length < page * 15) {
-                dispatch(setNext(true))
-                setDataAvailable(false)
-            }
+        if (data && data.length < page * 15) {
+            dispatch(setNext(true))
+            setDataAvailable(false)
+            const paginateData = data.slice((page - 1) * 15, page * 15);
+            setPageData([...pageData, ...paginateData])
             setDataAvailable(true)
-        })()
-    }, [data, page, dispatch]);
+        }
+    }, [data, page, dispatch, pageData]);
 
     if (isLoading) return <Loader />
     if (error) return <Error error={error} data={type} />
     return (
         <Suspense fallback={<Loader />}>
-            {data && paginateData.map((pokemonName) => (
+            {pageData.map((pokemonName) => (
                 <PokemonCard key={pokemonName} pokemonName={pokemonName} />
             ))}
             {!dataAvailable && <NoMoreData />}
