@@ -95,7 +95,7 @@ const Home = () => {
                 <Button
                     title={previous ? "Back" : "disable"}
                     type="button"
-                    className={fixed && type !== "all" ? "btn btn-secondary paginator position-fixed top-50 start-0" : "hidden"}
+                    className={fixed && type !== "all" ? "btn btn-secondary paginator position-fixed top-50 start-0" : "d-none"}
                     button={isMobile ? "<<" : "<<Back"}
                     onClick={() => decrementor()}
                     isLoading={isFetching}
@@ -104,7 +104,7 @@ const Home = () => {
                 <Button
                     type="button"
                     tile={next ? "next" : "disable"}
-                    className={fixed && type !== "all" ? "btn btn-secondary paginator position-fixed top-50 end-0" : "hidden"}
+                    className={fixed && type !== "all" ? "btn btn-secondary paginator position-fixed top-50 end-0" : "d-none"}
                     button={isMobile ? ">>" : "next>>"}
                     onClick={() => {
                         dispatch(setPage(page + 1))
