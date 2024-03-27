@@ -31,7 +31,6 @@ const Home = () => {
     useEffect(() => {
         const handleScroll = () => {
             setScrollLength(window.scrollY);
-            console.log(window.innerHeight)
             if (viewport.current && endScroll.current) {
                 const top = viewport.current.offsetTop;
                 const end = endScroll.current.offsetTop;
@@ -89,7 +88,7 @@ const Home = () => {
                             {type === "all" && pageData && pageData.map((pokemon: string, index: number) => (
                                 <PokemonCard key={index} pokemonName={pokemon} />
                             ))}
-                            {type !== "all" && data && <TypePokemon type={type} page={page} />}
+                            {type !== "all" && <TypePokemon type={type} page={page} />}
                         </Suspense>
                     </div>
                 </div>
@@ -110,6 +109,7 @@ const Home = () => {
                     onClick={() => {
                         dispatch(setPage(page + 1))
                         dispatch(setNext(false))
+                        dispatch(setPrevious(false))
                         nextPagination();
                         navigate('/#filter')
                     }}
