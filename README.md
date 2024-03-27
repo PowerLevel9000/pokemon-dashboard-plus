@@ -110,8 +110,10 @@
 > This link will guide you to my project
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/73347f69-a6b9-4eeb-903e-9f13d98d3191/deploy-status)](https://pokedexplus.netlify.app/)
+[![Render](https://img.shields.io/badge/Render-Click%20Here-blue)](https://pokemon-dashboard-plus.onrender.com/)
 <br>
-Presentation video <a href="https://www.loom.com/share/f1600b6b074c4161ba31a17f1023846f?sid=f35df531-4177-4550-a4c7-c212ca5e5ade">click here </a>
+## Presentation video 
+[![Video Link](https://img.shields.io/badge/Video-Click%20Here-red)](https://www.loom.com/share/f1600b6b074c4161ba31a17f1023846f?sid=f35df531-4177-4550-a4c7-c212ca5e5ade)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -211,8 +213,11 @@ Feel free to check the [issues page](https://github.com/PowerLevel9000/pokemon-d
 <!-- SUPPORT -->
 
 ## ⭐️ Show your support <a name="support"></a>
+
 If you like my Project give it a Star ✨🌟
-or 
+or
+<br />
+
 [![BuyMeACoffee](https://img.shields.io/badge/Buy%Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/adi8090808E)
 
 
