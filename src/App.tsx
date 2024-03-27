@@ -5,7 +5,7 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Search from './components/search/SearchPokemon';
 import Favorite from './components/favourite/Favorite';
-import Default404 from './components/default/DefaultPage404';
+import Default404 from './components/default/DefaultPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { setIsMobile } from './redux/feature/typeFilterSlice';
@@ -29,7 +29,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/favorites" element={<Favorite />} />
         <Route path="/pokemon/:pokemonName" element={<Details />} />
-        <Route path="*" element={<Default404 />} />
+        <Route path="*" element={<Default404 text='You Lost 😂😂😂😂' />} />
       </Routes>
       <Footer />
     </>
