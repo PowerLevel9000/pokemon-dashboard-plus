@@ -14,7 +14,6 @@ const TypeFilter = ({ fixed }) => {
             title={`type filter ${item}`}
             className='badge ms-1 bg-success text-capitalize'
             onClick={() => {
-              if (item === 'all') return;
               dispatch(setPage(1));
               dispatch(setType(item))
             }}
