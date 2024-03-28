@@ -8,6 +8,7 @@ import Error from './Error'
 import { setPage, setType } from '../../redux/feature/typeFilterSlice'
 import { useIsFavorite } from '../../lib/date'
 import { toggleFav } from '../../redux/feature/favLocalStorageSlice'
+import PokemonCardSkeleton from './PokemonCardSkeleton'
 
 const PokemonCard = ({ pokemonName }) => {
     const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName);
@@ -34,7 +35,7 @@ const PokemonCard = ({ pokemonName }) => {
         }))
     }
     // if loading, show loader
-    if (isLoading) return <Loader />
+    if (isLoading) return <PokemonCardSkeleton pokemonName={pokemonName} />
     // if error, show error
     if (error) return <Error error={error} data={pokemonName} />
 
